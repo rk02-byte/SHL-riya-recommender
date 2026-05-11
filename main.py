@@ -4,7 +4,7 @@ from typing import List, Dict
 import logging
 import time
 import os
-from agent import SHLAgent, AgentResponse
+from simple_agent import SimpleSHLAgent as SHLAgent, AgentResponse
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
