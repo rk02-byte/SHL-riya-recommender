@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: shl-assessment-recommender
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt && python build_assets.py"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: ANTHROPIC_API_KEY
+        sync: false
+
+build:
+  - dockerfilePath: ./Dockerfile
+
+# Health check configuration
+health:
+  path: /health
+  expectedStatuses:
+    - 200
+  timeout: 120000  # 2 minutes in milliseconds
+
+# Performance settings
+performance:
+  instances: 1
+  memory: 512Mi
